@@ -1,0 +1,301 @@
+" remove all existing autocmds
+autocmd!
+
+" set some paths to move vim files to ~/.config/vim
+set undodir=$XDG_DATA_HOME/vim/undo
+set directory=$XDG_DATA_HOME/vim/swap
+set backupdir=$XDG_DATA_HOME/vim/backup
+set viminfo='1000,n$XDG_DATA_HOME/vim/viminfo
+set runtimepath=$XDG_CONFIG_HOME/vim/vimdata,$VIMRUNTIME
+
+" initialize pathogen and add all vim plugins 
+call pathogen#infect('bundle/{}')
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" BASIC EDITING CONFIGURATION
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" vi should behave like vim
+set nocompatible
+
+" allow unsaved background buffers and remember marks/undo for them
+set hidden
+
+" remember more commands and search history
+set history=10000
+
+" tabs are converted to spaces
+"set expandtab
+
+" a tab is 4 spaces
+set tabstop=4
+"set softtabstop=4
+
+" 4 spaces per indentation step
+set shiftwidth=4
+
+" well, this is obvious :)
+set autoindent
+
+" always show a status line
+set laststatus=2
+
+" briefly jump to matching bracket, if on screen
+set showmatch
+
+" search while typing pattern
+set incsearch
+
+" highlight search
+set hlsearch
+
+" make searches case-sensitive only if they contain upper-case characters
+set ignorecase smartcase
+
+" highlight current line
+" set cursorline
+
+" this will fasten scrolling with cursorline enabled
+set lazyredraw
+
+" one line for the command line
+set cmdheight=1
+
+" if a file is already opened, jump to that window
+set switchbuf=useopen
+
+" Always show tab bar at the top
+set showtabline=2
+
+" try to have at least 84 columns
+set winwidth=79
+
+" try to have 30 rows in each window, and at least 5
+ set winheight=30
+set winminheight=5
+
+" keep more context above and below the cursor
+" point is, I want more context when I search
+set scrolloff=5
+
+" Don't make backups at all and, just in case, do not dare to use the current
+" directory
+set nobackup
+set nowritebackup
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set noswapfile
+
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+
+" display incomplete commands
+set showcmd
+
+" use emacs-style tab completion when selecting files, etc
+set wildmode=longest,list
+
+" make tab completion for files/buffers act like bash
+set wildmenu
+
+" Fix slow O inserts
+" Modelines (comments that set vim options on a per-file basis)
+set modeline
+set modelines=3
+
+" Turn folding off for real, hopefully
+set foldmethod=manual
+set nofoldenable
+
+" Insert only one space when joining lines that contain sentence-terminating
+" punctuation like `.`.
+set nojoinspaces
+
+" If a file is changed outside of vim, automatically reload it without asking
+set autoread
+
+" don't mess the primary buffer
+"set clipboard=exclude:cons\|linux\|xterm-256color\|xterm
+set clipboard=unnamed
+
+" this should make the redraw faster
+set ttyfast
+
+" direction of splits
+set splitbelow
+set splitright
+
+" do not show @ when line is long
+set display+=lastline
+
+" = should not be part of what vim considers a file path
+" this is needed to be able to open with gf paths like variable=file_path
+set isfname-==
+
+" don't fuck with my input on paste and insert. Wrap my ass
+set formatoptions=
+
+" Activare absolute number for current line
+set number
+
+" Enable highlighting for syntax
+syntax on
+
+" Enable file type detection.
+" Use the default filetype settings, so that mail gets 'tw' set to 72,
+" 'cindent' is on in C files, etc.
+" Also load indent files, to automatically do language-dependent indenting.
+filetype plugin indent on
+
+" Normally, Vim messes with iskeyword when you open a shell file. This can
+" leak out, polluting other file types even after a 'set ft=' change. This
+" variable prevents the iskeyword change so it can't hurt anyone.
+let g:sh_noisk=1
+
+" this function will enable Overlength coloring after the 80-th column
+" numbering is also activated
+" I use this scheme when editing source files
+" see vimrcEc to see when this is activated
+function! Num_80col()
+  set number
+  match OverLength /\%81v.\+/
+endfunction
+
+" current working dir is the dir of the opened file
+" set autochdir
+
+" virtual mode in all modes. I don't use it, but it does the vertical thing
+" that nedit folks like. God knows why...
+" :set virtualedit=all
+
+
+" vertical bar on col 81
+:set colorcolumn=81
+
+"highlight col 81 only if line is longer
+"call matchadd('ColorColumn', '\%81v', 100)
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" COLOR
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+:set t_Co=256 " 256 colors
+:set background=dark
+
+if ($ST_TERMINAL=='1')
+	:color solarized
+else
+	:color desert
+endif
+:set t_ut= "Disable Background Color Erase
+let g:lightline = { 'colorscheme': 'solarized' }
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" STATUS LINE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" truncate if too long, relative path, (filetype), modified?, right align,
+" row, column, virtual column (think of characters that need more slot, like
+" tab
+" :set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)\ (%P)
+
+" lightline plugin takes care of showing which mode are we in
+set noshowmode
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" MISC KEY MAPS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" leader key
+let mapleader=","
+
+"the text that paste overwrites will not be placed in the default register
+xnoremap p pgvy
+
+" toggle between terminal and vim mouse
+map <silent><F2> :let &mouse=(&mouse == "a"?"":"a")<CR>
+imap <silent><F2> :let &mouse=(&mouse == "a"?"":"a")<CR>
+
+map <leader>y "*y
+
+" Move around splits with <c-hjkl>
+nnoremap <c-k> <c-w>k
+nnoremap <c-j> <c-w>j
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
+
+" j and k will move one "visual" line, in case of very long lines
+nnoremap j gj
+nnoremap k gk
+
+" Insert an arrow with <c-l>
+imap <c-l> ->
+
+" show line numbers with F3 key
+noremap <F3> :set number!<CR>
+
+" toggle match with F4
+noremap <F4> :call ToggleOverlength()<cr>
+
+noremap <F5> :syntax on<cr>
+
+" clear search highlight with enter
+nnoremap <CR> :nohlsearch<cr>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CUSTOM AUTOCMDS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+augroup vimrcEx
+	" Clear all autocmds in the group
+	autocmd FileType text setlocal textwidth=0
+	" commend skill code with ; character when using vim-commentary
+	autocmd FileType skill setlocal commentstring=;\ %s
+	" Jump to last cursor position unless it's invalid or in an event handler
+	autocmd BufReadPost *
+				\ if line("'\"") > 0 && line("'\"") <= line("$") |
+				\   exe "normal g`\"" |
+				\ endif
+
+	autocmd FileType python set sw=4 sts=4 et
+
+	" Leave the return key alone when in command line windows, since it's used
+	" to run commands there.
+	autocmd! CmdwinEnter * :unmap <cr>
+	autocmd! CmdwinLeave * :call MapCR()
+
+augroup END
+
+autocmd BufNewFile,BufRead *.cdl syntax off
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" MULTIPURPOSE TAB KEY
+" Indent if we're at the beginning of a line. Else, do completion.
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if exists("g:ctrlp_user_command")
+	unlet g:ctrlp_user_command
+endif
+let g:ctrlp_custom_ignore = '/usr' 
+function! InsertTabWrapper()
+	let col = col('.') - 1
+	if !col || getline('.')[col - 1] !~ '\k'
+		return "\<tab>"
+	else
+		return "\<c-p>"
+	endif
+endfunction
+inoremap <expr> <tab> InsertTabWrapper()
+inoremap <s-tab> <c-n>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" RENAME CURRENT FILE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! RenameFile()
+	let old_name = expand('%')
+	let new_name = input('New file name: ', expand('%'), 'file')
+	if new_name != '' && new_name != old_name
+		exec ':saveas ' . new_name
+		exec ':silent !rm ' . old_name
+		redraw!
+	endif
+endfunction
+map <leader>n :call RenameFile()<cr>
