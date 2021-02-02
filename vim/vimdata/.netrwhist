@@ -1,5 +1,11 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_cnt =9
 let g:netrw_dirhist_1='/nfs/vr/disks/home001/posgnach/.config/vim/vimdata/bundle/lightline.vim/autoload'
 let g:netrw_dirhist_2='/nfs/site/proj/chdhw/wave_c16/wave600_2/v_wave_c16.pub.v-fcdev.wave600_2.work/ipg_fc/dac80m/oa/wk_ponton_dac80m'
 let g:netrw_dirhist_3='/nfs/vr/disks/home001/posgnach/.config/vim/vimdata/bundle/command-t'
+let g:netrw_dirhist_4='/nfs/vr/proj/chdhw/gafe_c16.work/posgnach/simulation/wk_posgnach/simu_pipe14b_vhdl_v3/maestro/results/maestro/.tmpADEDir_posgnach/TESTER/wk_sergio_simu_pipe14b_vhdl_v3_config_ams/netlist/.mapi'
+let g:netrw_dirhist_5='/nfs/vr/proj/chdhw/gafe_c16.work/posgnach/simulation/wk_posgnach/simu_pipe14b_vhdl_v3/maestro/results/maestro/.tmpADEDir_posgnach/TESTER/wk_sergio_simu_pipe14b_vhdl_v3_config_ams/netlist/.mapi/INCA_libs'
+let g:netrw_dirhist_6='/nfs/vr/proj/chdhw/gafe_c16.work/posgnach/simulation/wk_posgnach/simu_pipe14b_vhdl_v3/maestro/results/maestro/.tmpADEDir_posgnach/TESTER/wk_sergio_simu_pipe14b_vhdl_v3_config_ams/netlist/.mapi/INCA_libs/wk_sergio'
+let g:netrw_dirhist_7='/nfs/vr/proj/chdhw/gafe_c16.work/posgnach/simulation/wk_posgnach/simu_pipe14b_vhdl_v3/maestro/results/maestro/.tmpADEDir_posgnach/TESTER/wk_sergio_simu_pipe14b_vhdl_v3_config_ams/netlist/digital/ihnl/cds7'
+let g:netrw_dirhist_8='/nfs/site/proj/gateway/tools/gwfullcustom/7.0RC1/scripts/virtuoso'
+let g:netrw_dirhist_9='/nfs/vr/proj/rfip/avc_ip/avcaa0/dss/dss.common.default/units/top/home/posgnach/simulation/wk_posgnach/tb_avcaa0_tx_rear_cap_balun'
