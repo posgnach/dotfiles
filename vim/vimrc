@@ -71,8 +71,8 @@ set showtabline=2
 set winwidth=79
 
 " try to have 30 rows in each window, and at least 5
- set winheight=30
-set winminheight=5
+" set winheight=30
+" set winminheight=5
 
 " keep more context above and below the cursor
 " point is, I want more context when I search
@@ -132,6 +132,8 @@ set display+=lastline
 " this is needed to be able to open with gf paths like variable=file_path
 set isfname-==
 
+set isfname+=:
+
 " don't fuck with my input on paste and insert. Wrap my ass
 set formatoptions=
 
@@ -160,22 +162,23 @@ let g:sh_noisk=1
 " :set virtualedit=all
 
 " vertical bar on col 81
-:set colorcolumn=81
+" :set colorcolumn=81
 
 " nerdtree should show hidden files
 let NERDTreeShowHidden=1
+
+" enablem utf8 encoding
+set tenc=utf8
+
+" disable printing
+let $CUPS_SERVER = ""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " COLOR
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 :set t_Co=256 " 256 colors
 :set background=dark
-
-if ($ST_TERMINAL=='1')
-	:color solarized
-else
-	:color desert
-endif
+:color solarized
 :set t_ut= "Disable Background Color Erase
 let g:lightline = { 'colorscheme': 'solarized' }
 
@@ -252,6 +255,9 @@ augroup vimrcEx
 
 	" .cdsinit is a skill file
 	autocmd BufNewFile,BufRead .cdsinit   set filetype=skill
+
+	autocmd BufRead cds.lib set filetype=
+	autocmd BufRead *cds.lib set filetype=
 	
 	" commend skill code with ; character when using vim-commentary
 	autocmd FileType skill setlocal commentstring=;\ %s
@@ -278,6 +284,8 @@ autocmd BufNewFile,BufRead *.cdl syntax off
 
 autocmd BufNewFile,BufRead *.il set expandtab shiftwidth=4
 autocmd BufNewFile,BufRead *.ils set expandtab shiftwidth=4
+autocmd BufNewFile,BufRead *.lib set ft=
+autocmd BufNewFile,BufRead *.inst set ft=tcl
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MULTIPURPOSE TAB KEY
